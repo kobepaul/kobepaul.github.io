@@ -92,7 +92,7 @@
 <meta property="og:image" content="http://yoursite.com/2018/12/16/02_网易JAVA系列_变量可见性和线程安全/内存同步协议规范.png">
 <meta property="og:image" content="http://yoursite.com/2018/12/16/02_网易JAVA系列_变量可见性和线程安全/指令重排.png">
 <meta property="og:image" content="http://yoursite.com/2018/12/16/02_网易JAVA系列_变量可见性和线程安全/Java高级技术栈.png">
-<meta property="og:updated_time" content="2018-12-16T14:10:32.531Z">
+<meta property="og:updated_time" content="2018-12-16T14:15:09.788Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="网易JAVA系列_变量可见性和线程安全">
 <meta name="twitter:description" content="0. 本次课程主要内容 掌握并发中变量可见性问题 掌握造成线程安全、变量可见性问题的原因 掌握volatile关键字的用途、使用场景  1. 掌握并发中变量可见性问题（多线程时能不能看到变量的最新值）1.1 什么是并发中的变量可见性问题？1.1.1 变量分类 ​    全局变量：成员属性；局部变量：本地变量和参数 1.1.2 如何在多个线程间共享数据 ​    用全局变量：静态变量或者共享对象（注">
@@ -401,7 +401,7 @@
 <p>​    经测试，另一个变量不能看到变量的最新值。</p>
 <h4 id="1-2-不可见的原因及如何才能可见？"><a href="#1-2-不可见的原因及如何才能可见？" class="headerlink" title="1.2 不可见的原因及如何才能可见？"></a>1.2 不可见的原因及如何才能可见？</h4><p>1.2.1 为什么不可见？</p>
 <p>1.2.2 怎么才能可见？</p>
-<p>   ①使用synchronized代码块或方法  ②使用volatile关键字</p>
+<p>​    ①使用synchronized代码块或方法  ②使用volatile关键字</p>
 <h3 id="2-掌握造成线程安全、变量可见性问题的原因"><a href="#2-掌握造成线程安全、变量可见性问题的原因" class="headerlink" title="2. 掌握造成线程安全、变量可见性问题的原因"></a>2. 掌握造成线程安全、变量可见性问题的原因</h3><h4 id="2-1-Java内存模型"><a href="#2-1-Java内存模型" class="headerlink" title="2.1 Java内存模型"></a>2.1 Java内存模型</h4><p>2.1.1 Java内存模型及操作规范</p>
 <p>​    ①共享变量必须存放在主内存中</p>
 <p>​    ②线程有自己的工作内存，线程只可操作自己的工作内存</p>
