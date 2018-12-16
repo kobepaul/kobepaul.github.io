@@ -87,15 +87,15 @@
 <meta property="og:site_name" content="Hexo">
 <meta property="og:description" content="1.了解分布式、高并发下的id生成要求1.1 对id有哪些要求？ ​    ①全局唯一    ②趋势递增    ③效率高（生成、使用、索引）    ④控制并发 ​    趋势递增：并不要求像1，2，3…一样严格有序递增，只要整体式来看是增长的，有规律可循即可。（一般id为数据库索引，对MySQL中的B+树等比较友好） ​    效率高：生成（每秒生成的id数）、使用（最好是整形的数字，相比字符串更">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="http://yoursite.com/2018/12/16/01_网易JAVA系列_高并发订单号生成策略揭秘/assets/id生成方案二.png">
-<meta property="og:image" content="http://yoursite.com/2018/12/16/01_网易JAVA系列_高并发订单号生成策略揭秘/assets/id生成雪花算法.png">
-<meta property="og:image" content="http://yoursite.com/2018/12/16/01_网易JAVA系列_高并发订单号生成策略揭秘/assets/id方案生成Redis.png">
-<meta property="og:image" content="http://yoursite.com/2018/12/16/01_网易JAVA系列_高并发订单号生成策略揭秘/assets/id生成方案对比.png">
-<meta property="og:updated_time" content="2018-12-16T12:38:11.657Z">
+<meta property="og:image" content="http://yoursite.com/2018/12/16/01_网易JAVA系列_高并发订单号生成策略揭秘/id生成方案二.png">
+<meta property="og:image" content="http://yoursite.com/2018/12/16/01_网易JAVA系列_高并发订单号生成策略揭秘/id生成雪花算法.png">
+<meta property="og:image" content="http://yoursite.com/2018/12/16/01_网易JAVA系列_高并发订单号生成策略揭秘/id方案生成Redis.png">
+<meta property="og:image" content="http://yoursite.com/2018/12/16/01_网易JAVA系列_高并发订单号生成策略揭秘/id生成方案对比.png">
+<meta property="og:updated_time" content="2018-12-16T12:54:57.876Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="网易JAVA系列_高并发订单号生成策略揭秘">
 <meta name="twitter:description" content="1.了解分布式、高并发下的id生成要求1.1 对id有哪些要求？ ​    ①全局唯一    ②趋势递增    ③效率高（生成、使用、索引）    ④控制并发 ​    趋势递增：并不要求像1，2，3…一样严格有序递增，只要整体式来看是增长的，有规律可循即可。（一般id为数据库索引，对MySQL中的B+树等比较友好） ​    效率高：生成（每秒生成的id数）、使用（最好是整形的数字，相比字符串更">
-<meta name="twitter:image" content="http://yoursite.com/2018/12/16/01_网易JAVA系列_高并发订单号生成策略揭秘/assets/id生成方案二.png">
+<meta name="twitter:image" content="http://yoursite.com/2018/12/16/01_网易JAVA系列_高并发订单号生成策略揭秘/id生成方案二.png">
 
 
 
@@ -398,21 +398,21 @@
 <p>1.3 生成id的策略二：数据库自增长</p>
 <p>​    MySQL中使用AUTO_INCREMENT，Oracle中使用Sequence系列</p>
 <p>​    集群环境下，不同的库设置不同的初始值，步长一致。</p>
-<p><img src="assets/id生成方案二.png" alt=""></p>
+<p><img src="/2018/12/16/01_网易JAVA系列_高并发订单号生成策略揭秘/id生成方案二.png" alt=""></p>
 <p>​    优点：①无需编码；②性能过得去；③索引友好</p>
 <p>​    缺点：①大表不能做水平分表，否则插入删除易出现问题；②依赖前期规划，拓展麻烦；③依赖MySQL内部维护“自增锁”，高并发下插入数据影响性能；④在业务操作父、子表（关联表）插入时，要“先父后子”（因为是自增，子表的字段需要根据父表的写入后返回的主键确定）</p>
 <p>​    使用场景：数据量较大、不想用程序维护id、方便后续业务迁移的时候</p>
 <p>1.4 推特的雪花算法</p>
-<p><img src="assets/id生成雪花算法.png" alt=""></p>
+<p><img src="/2018/12/16/01_网易JAVA系列_高并发订单号生成策略揭秘/id生成雪花算法.png" alt=""></p>
 <p>​    优点：①性能较优，速度快；②无需第三方依赖，实现也很简单；③可以根据实际情况调整和拓展算法，方便灵活。</p>
 <p>​    缺点：①依赖机器时间，如果发生回拨会导致可能生成id重复，业界一般根据雪花算法进行拓展。</p>
 <p>1.5 基于Redis自增</p>
-<p><img src="assets/id方案生成Redis.png" alt=""></p>
+<p><img src="/2018/12/16/01_网易JAVA系列_高并发订单号生成策略揭秘/id方案生成Redis.png" alt=""></p>
 <p>​    优点：①扩展性强，可以方便的结合业务进行处理；②利用Redis操作原子性的特性，保证在并发的时候不会重复。</p>
 <p>​    缺点：①引入Redis就意味着引入其他第三方依赖；②增加一次网络开销；③需要对Redis服务实现高可用。</p>
 <p>​    使用场景：绝大部分id自增场景。</p>
 <h3 id="2-了解各种方案使用场景"><a href="#2-了解各种方案使用场景" class="headerlink" title="2.了解各种方案使用场景"></a>2.了解各种方案使用场景</h3><p>2.1 各方案对比</p>
-<p><img src="assets/id生成方案对比.png" alt=""></p>
+<p><img src="/2018/12/16/01_网易JAVA系列_高并发订单号生成策略揭秘/id生成方案对比.png" alt=""></p>
 
       
     </div>
@@ -439,22 +439,6 @@
       
       
 
-      
-        <div class="post-nav">
-          <div class="post-nav-next post-nav-item">
-            
-              <a href="/2018/12/16/dajiahao/" rel="next" title="dajiahao">
-                <i class="fa fa-chevron-left"></i> dajiahao
-              </a>
-            
-          </div>
-
-          <span class="post-nav-divider"></span>
-
-          <div class="post-nav-prev post-nav-item">
-            
-          </div>
-        </div>
       
 
       
@@ -528,7 +512,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">2</span>
+                  <span class="site-state-item-count">1</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
