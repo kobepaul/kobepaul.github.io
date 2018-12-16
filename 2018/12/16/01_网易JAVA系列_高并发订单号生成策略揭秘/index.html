@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="Hexo, NexT">
+  <meta name="keywords" content="网易JAVA，知识积累,">
 
 
 
@@ -80,21 +80,22 @@
 
 
 <meta name="description" content="1.了解分布式、高并发下的id生成要求1.1 对id有哪些要求？ ​    ①全局唯一    ②趋势递增    ③效率高（生成、使用、索引）    ④控制并发 ​    趋势递增：并不要求像1，2，3…一样严格有序递增，只要整体式来看是增长的，有规律可循即可。（一般id为数据库索引，对MySQL中的B+树等比较友好） ​    效率高：生成（每秒生成的id数）、使用（最好是整形的数字，相比字符串更">
+<meta name="keywords" content="网易JAVA，知识积累">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Hexo">
-<meta property="og:url" content="http://yoursite.com/2018/11/20/01_网易JAVA系列_高并发订单号生成策略揭秘/index.html">
+<meta property="og:title" content="网易JAVA系列_高并发订单号生成策略揭秘">
+<meta property="og:url" content="http://yoursite.com/2018/12/16/01_网易JAVA系列_高并发订单号生成策略揭秘/index.html">
 <meta property="og:site_name" content="Hexo">
 <meta property="og:description" content="1.了解分布式、高并发下的id生成要求1.1 对id有哪些要求？ ​    ①全局唯一    ②趋势递增    ③效率高（生成、使用、索引）    ④控制并发 ​    趋势递增：并不要求像1，2，3…一样严格有序递增，只要整体式来看是增长的，有规律可循即可。（一般id为数据库索引，对MySQL中的B+树等比较友好） ​    效率高：生成（每秒生成的id数）、使用（最好是整形的数字，相比字符串更">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="http://yoursite.com/2018/11/20/01_网易JAVA系列_高并发订单号生成策略揭秘/assets/id生成方案二.png">
-<meta property="og:image" content="http://yoursite.com/2018/11/20/01_网易JAVA系列_高并发订单号生成策略揭秘/assets/id生成雪花算法.png">
-<meta property="og:image" content="http://yoursite.com/2018/11/20/01_网易JAVA系列_高并发订单号生成策略揭秘/assets/id方案生成Redis.png">
-<meta property="og:image" content="http://yoursite.com/2018/11/20/01_网易JAVA系列_高并发订单号生成策略揭秘/assets/id生成方案对比.png">
-<meta property="og:updated_time" content="2018-12-16T12:24:25.847Z">
+<meta property="og:image" content="http://yoursite.com/2018/12/16/01_网易JAVA系列_高并发订单号生成策略揭秘/assets/id生成方案二.png">
+<meta property="og:image" content="http://yoursite.com/2018/12/16/01_网易JAVA系列_高并发订单号生成策略揭秘/assets/id生成雪花算法.png">
+<meta property="og:image" content="http://yoursite.com/2018/12/16/01_网易JAVA系列_高并发订单号生成策略揭秘/assets/id方案生成Redis.png">
+<meta property="og:image" content="http://yoursite.com/2018/12/16/01_网易JAVA系列_高并发订单号生成策略揭秘/assets/id生成方案对比.png">
+<meta property="og:updated_time" content="2018-12-16T12:38:11.657Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Hexo">
+<meta name="twitter:title" content="网易JAVA系列_高并发订单号生成策略揭秘">
 <meta name="twitter:description" content="1.了解分布式、高并发下的id生成要求1.1 对id有哪些要求？ ​    ①全局唯一    ②趋势递增    ③效率高（生成、使用、索引）    ④控制并发 ​    趋势递增：并不要求像1，2，3…一样严格有序递增，只要整体式来看是增长的，有规律可循即可。（一般id为数据库索引，对MySQL中的B+树等比较友好） ​    效率高：生成（每秒生成的id数）、使用（最好是整形的数字，相比字符串更">
-<meta name="twitter:image" content="http://yoursite.com/2018/11/20/01_网易JAVA系列_高并发订单号生成策略揭秘/assets/id生成方案二.png">
+<meta name="twitter:image" content="http://yoursite.com/2018/12/16/01_网易JAVA系列_高并发订单号生成策略揭秘/assets/id生成方案二.png">
 
 
 
@@ -124,13 +125,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2018/11/20/01_网易JAVA系列_高并发订单号生成策略揭秘/">
+  <link rel="canonical" href="http://yoursite.com/2018/12/16/01_网易JAVA系列_高并发订单号生成策略揭秘/">
 
 
 
 
 
-  <title> | Hexo</title>
+  <title>网易JAVA系列_高并发订单号生成策略揭秘 | Hexo</title>
   
 
 
@@ -297,7 +298,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/11/20/01_网易JAVA系列_高并发订单号生成策略揭秘/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/12/16/01_网易JAVA系列_高并发订单号生成策略揭秘/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Jianfeng Xu">
@@ -314,7 +315,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline"></h1>
+          <h1 class="post-title" itemprop="name headline">网易JAVA系列_高并发订单号生成策略揭秘</h1>
         
 
         <div class="post-meta">
@@ -326,8 +327,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-11-20T20:54:36+08:00">
-                2018-11-20
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-12-16T20:28:00+08:00">
+                2018-12-16
               </time>
             
 
@@ -336,6 +337,28 @@
             
           </span>
 
+          
+            <span class="post-category">
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
+                  <a href="/categories/第一次尝试/" itemprop="url" rel="index">
+                    <span itemprop="name">第一次尝试</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
           
 
           
@@ -405,6 +428,12 @@
 
     <footer class="post-footer">
       
+        <div class="post-tags">
+          
+            <a href="/tags/网易JAVA，知识积累/" rel="tag"># 网易JAVA，知识积累</a>
+          
+        </div>
+      
 
       
       
@@ -414,15 +443,15 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
+              <a href="/2018/12/16/dajiahao/" rel="next" title="dajiahao">
+                <i class="fa fa-chevron-left"></i> dajiahao
+              </a>
+            
           </div>
 
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2018/12/16/dajiahao/" rel="prev" title="dajiahao">
-                dajiahao <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -506,7 +535,25 @@
             
 
             
+              
+              
+              <div class="site-state-item site-state-categories">
+                
+                  <span class="site-state-item-count">1</span>
+                  <span class="site-state-item-name">分类</span>
+                
+              </div>
+            
 
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                
+                  <span class="site-state-item-count">1</span>
+                  <span class="site-state-item-name">标签</span>
+                
+              </div>
             
 
           </nav>
