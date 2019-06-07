@@ -67,7 +67,7 @@
 
 
 
-  <meta name="keywords" content="网易JAVA，知识积累,">
+  <meta name="keywords" content="Hexo, NexT">
 
 
 
@@ -78,23 +78,17 @@
 
 
 
-<meta name="description" content="了解分布式、高并发下的id生成要求对id有哪些要求？​    ①全局唯一    ②趋势递增    ③效率高（生成、使用、索引）    ④控制并发 ​    趋势递增：并不要求像1，2，3…一样严格有序递增，只要整体式来看是增长的，有规律可循即可。（一般id为数据库索引，对MySQL中的B+树等比较友好） ​    效率高：生成（每秒生成的id数）、使用（最好是整形的数字，相比字符串更有优势）、索引">
-<meta name="keywords" content="网易JAVA，知识积累">
+<meta name="description" content="System类对象调用initializeSystemClass()进行各成员对象的初始化，并且可以通过调用setOut()等方法对输入流、输出流对象进行切换，但流对象却是用final修饰的，原因在于setOut()等方法实际调用的是native关键词修饰的setOut0()方法。  Java中的String字符串拼接，其本质如下，可以通过查看字节码实现： 123456//new StringB">
 <meta property="og:type" content="article">
-<meta property="og:title" content="网易JAVA系列_高并发订单号生成策略揭秘">
-<meta property="og:url" content="http://yoursite.com/2018/12/16/01_网易JAVA系列_高并发订单号生成策略揭秘/index.html">
+<meta property="og:title" content="Java核心技术——对象基础">
+<meta property="og:url" content="http://yoursite.com/2019/06/07/Java核心技术——对象基础/index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="了解分布式、高并发下的id生成要求对id有哪些要求？​    ①全局唯一    ②趋势递增    ③效率高（生成、使用、索引）    ④控制并发 ​    趋势递增：并不要求像1，2，3…一样严格有序递增，只要整体式来看是增长的，有规律可循即可。（一般id为数据库索引，对MySQL中的B+树等比较友好） ​    效率高：生成（每秒生成的id数）、使用（最好是整形的数字，相比字符串更有优势）、索引">
+<meta property="og:description" content="System类对象调用initializeSystemClass()进行各成员对象的初始化，并且可以通过调用setOut()等方法对输入流、输出流对象进行切换，但流对象却是用final修饰的，原因在于setOut()等方法实际调用的是native关键词修饰的setOut0()方法。  Java中的String字符串拼接，其本质如下，可以通过查看字节码实现： 123456//new StringB">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="http://yoursite.com/2018/12/16/01_网易JAVA系列_高并发订单号生成策略揭秘/id生成方案二.png">
-<meta property="og:image" content="http://yoursite.com/2018/12/16/01_网易JAVA系列_高并发订单号生成策略揭秘/id生成雪花算法.png">
-<meta property="og:image" content="http://yoursite.com/2018/12/16/01_网易JAVA系列_高并发订单号生成策略揭秘/id方案生成Redis.png">
-<meta property="og:image" content="http://yoursite.com/2018/12/16/01_网易JAVA系列_高并发订单号生成策略揭秘/id生成方案对比.png">
-<meta property="og:updated_time" content="2018-12-18T13:10:22.631Z">
+<meta property="og:updated_time" content="2019-06-07T12:55:29.064Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="网易JAVA系列_高并发订单号生成策略揭秘">
-<meta name="twitter:description" content="了解分布式、高并发下的id生成要求对id有哪些要求？​    ①全局唯一    ②趋势递增    ③效率高（生成、使用、索引）    ④控制并发 ​    趋势递增：并不要求像1，2，3…一样严格有序递增，只要整体式来看是增长的，有规律可循即可。（一般id为数据库索引，对MySQL中的B+树等比较友好） ​    效率高：生成（每秒生成的id数）、使用（最好是整形的数字，相比字符串更有优势）、索引">
-<meta name="twitter:image" content="http://yoursite.com/2018/12/16/01_网易JAVA系列_高并发订单号生成策略揭秘/id生成方案二.png">
+<meta name="twitter:title" content="Java核心技术——对象基础">
+<meta name="twitter:description" content="System类对象调用initializeSystemClass()进行各成员对象的初始化，并且可以通过调用setOut()等方法对输入流、输出流对象进行切换，但流对象却是用final修饰的，原因在于setOut()等方法实际调用的是native关键词修饰的setOut0()方法。  Java中的String字符串拼接，其本质如下，可以通过查看字节码实现： 123456//new StringB">
 
 
 
@@ -124,13 +118,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2018/12/16/01_网易JAVA系列_高并发订单号生成策略揭秘/">
+  <link rel="canonical" href="http://yoursite.com/2019/06/07/Java核心技术——对象基础/">
 
 
 
 
 
-  <title>网易JAVA系列_高并发订单号生成策略揭秘 | Hexo</title>
+  <title>Java核心技术——对象基础 | Hexo</title>
   
 
 
@@ -279,7 +273,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/12/16/01_网易JAVA系列_高并发订单号生成策略揭秘/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/06/07/Java核心技术——对象基础/">
 
     <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Jianfeng Xu">
@@ -296,7 +290,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">网易JAVA系列_高并发订单号生成策略揭秘</h1>
+          <h1 class="post-title" itemprop="name headline">Java核心技术——对象基础</h1>
         
 
         <div class="post-meta">
@@ -308,8 +302,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-12-16T20:28:00+08:00">
-                2018-12-16
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-06-07T20:54:51+08:00">
+                2019-06-07
               </time>
             
 
@@ -318,28 +312,6 @@
             
           </span>
 
-          
-            <span class="post-category">
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope="" itemtype="http://schema.org/Thing">
-                  <a href="/categories/第一次尝试/" itemprop="url" rel="index">
-                    <span itemprop="name">第一次尝试</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
           
 
           
@@ -368,27 +340,51 @@
       
 
       
-        <h3 id="了解分布式、高并发下的id生成要求"><a href="#了解分布式、高并发下的id生成要求" class="headerlink" title="了解分布式、高并发下的id生成要求"></a>了解分布式、高并发下的id生成要求</h3><h4 id="对id有哪些要求？"><a href="#对id有哪些要求？" class="headerlink" title="对id有哪些要求？"></a>对id有哪些要求？</h4><p>​    ①全局唯一    ②趋势递增    ③效率高（生成、使用、索引）    ④控制并发</p>
-<p>​    趋势递增：并不要求像1，2，3…一样严格有序递增，只要整体式来看是增长的，有规律可循即可。（一般id为数据库索引，对MySQL中的B+树等比较友好）</p>
-<p>​    效率高：生成（每秒生成的id数）、使用（最好是整形的数字，相比字符串更有优势）、索引（对整形有序数字构建索引相比字符串更快，查询也是）</p>
-<h4 id="生成id的策略一：UUID（长度为36的字符串）"><a href="#生成id的策略一：UUID（长度为36的字符串）" class="headerlink" title="生成id的策略一：UUID（长度为36的字符串）"></a>生成id的策略一：UUID（长度为36的字符串）</h4><p>​    由以当前日期和时间、时钟序列和全局唯一的IEEE机器识别号（一般为MAC地址）等元素组成。</p>
-<p>​    优点：①使用简单；②不依赖其他组件；③不影响数据库拓展</p>
-<p>​    缺点：①数据库索引效率低；②太过于无意义，用户不友好；③长度36的字符串，空间占用大；④应用集群环境，机器多的时候，重复几率大</p>
-<h4 id="生成id的策略二：数据库自增长"><a href="#生成id的策略二：数据库自增长" class="headerlink" title="生成id的策略二：数据库自增长"></a>生成id的策略二：数据库自增长</h4><p>​    MySQL中使用AUTO_INCREMENT，Oracle中使用Sequence系列</p>
-<p>​    集群环境下，不同的库设置不同的初始值，步长一致。</p>
-<p><img src="/2018/12/16/01_网易JAVA系列_高并发订单号生成策略揭秘/id生成方案二.png" alt=""></p>
-<p>​    优点：①无需编码；②性能过得去；③索引友好</p>
-<p>​    缺点：①大表不能做水平分表，否则插入删除易出现问题；②依赖前期规划，拓展麻烦；③依赖MySQL内部维护“自增锁”，高并发下插入数据影响性能；④在业务操作父、子表（关联表）插入时，要“先父后子”（因为是自增，子表的字段需要根据父表的写入后返回的主键确定）</p>
-<p>​    使用场景：数据量较大、不想用程序维护id、方便后续业务迁移的时候</p>
-<h4 id="推特的雪花算法"><a href="#推特的雪花算法" class="headerlink" title="推特的雪花算法"></a>推特的雪花算法</h4><p><img src="/2018/12/16/01_网易JAVA系列_高并发订单号生成策略揭秘/id生成雪花算法.png" alt=""></p>
-<p>​    优点：①性能较优，速度快；②无需第三方依赖，实现也很简单；③可以根据实际情况调整和拓展算法，方便灵活。</p>
-<p>​    缺点：①依赖机器时间，如果发生回拨会导致可能生成id重复，业界一般根据雪花算法进行拓展。</p>
-<h4 id="基于Redis自增"><a href="#基于Redis自增" class="headerlink" title="基于Redis自增"></a>基于Redis自增</h4><p><img src="/2018/12/16/01_网易JAVA系列_高并发订单号生成策略揭秘/id方案生成Redis.png" alt=""></p>
-<p>​    优点：①扩展性强，可以方便的结合业务进行处理；②利用Redis操作原子性的特性，保证在并发的时候不会重复。</p>
-<p>​    缺点：①引入Redis就意味着引入其他第三方依赖；②增加一次网络开销；③需要对Redis服务实现高可用。</p>
-<p>​    使用场景：绝大部分id自增场景。</p>
-<h3 id="了解各种方案使用场景"><a href="#了解各种方案使用场景" class="headerlink" title="了解各种方案使用场景"></a>了解各种方案使用场景</h3><p>2.1各方案对比</p>
-<p><img src="/2018/12/16/01_网易JAVA系列_高并发订单号生成策略揭秘/id生成方案对比.png" alt=""></p>
+        <ol>
+<li><p><code>System</code>类对象调用<code>initializeSystemClass()</code>进行各成员对象的初始化，并且可以通过调用<code>setOut()</code>等方法对输入流、输出流对象进行切换，但流对象却是用<code>final</code>修饰的，原因在于<code>setOut()</code>等方法实际调用的是<code>native</code>关键词修饰的<code>setOut0()</code>方法。</p>
+</li>
+<li><p><code>Java</code>中的<code>String</code>字符串拼接，其本质如下，可以通过查看字节码实现：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//new StringBuilder() -&gt; append() -&gt; toString()</span></span><br><span class="line">String string= <span class="string">"1"</span> + <span class="keyword">new</span> String(<span class="string">"2"</span>);</span><br><span class="line"><span class="comment">//new StringBuilder() -&gt; valueOf() -&gt; append() -&gt; toString()</span></span><br><span class="line">String a = <span class="string">"123"</span>;</span><br><span class="line">String b = <span class="string">"456"</span>;</span><br><span class="line">String string = a + b;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><code>Java</code>中的<code>String</code>之所以被设计为不可变类，是为了实现共享，保证线程安全。不可变类有以下特点：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">1</span>. 将类声明为<span class="keyword">final</span>，所以它不能被继承（不能通过自定义子类来修改父类属性）</span><br><span class="line"><span class="number">2</span>. 将所有的成员声明为私有的，这样就不允许直接访问这些成员</span><br><span class="line"><span class="number">3</span>. 对变量不要提供setter方法</span><br><span class="line"><span class="number">4</span>. 将所有可变的成员声明为<span class="keyword">final</span>，这样只能对它们赋值一次</span><br><span class="line"><span class="number">5</span>. 通过构造器初始化所有成员，进行深拷贝(deep copy)（执行构造函数后，不会因为形参本身发生变化而影响对象的变量）</span><br><span class="line"><span class="number">6</span>. 在getter方法中，不要直接返回对象本身，而是克隆对象，并返回对象的拷贝（不能通过get方法获取对象后在外部进行修改）</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>在<code>for</code>循环中，不能通过两个浮点数的<code>！=</code>比较作为终止条件，很有可能造成死循环。</p>
+</li>
+<li><p>数组拷贝的效率从快到慢排序：<code>System.arrayCopy() &gt; Arrays.copyOf() &gt; Object.clone() &gt; for</code>循环，其中前两种为浅拷贝，第三种对于数组除外的对象是深拷贝。</p>
+</li>
+<li><p><code>get</code>方法不能返回带有<code>set</code>方法的对象，这样的话修改了<code>get</code>返回值的对象会直接对原始对象的值进行更改，<strong>如果需要返回对象并且不影响原始对象中的值，则应该先进行<code>clone</code>，或者使用不可变类</strong>。（<code>P110</code>）</p>
+</li>
+<li><p>对于类中辅助方法，可以将其设置为<code>private</code>，不允许其他类进行访问；同时对于<code>private</code>方法，只要保证类内部没有调用该方法，就可以将其删去，因为不会有外部类调用该方法。</p>
+</li>
+<li><p>对于<code>final</code>修饰的域，必须在定义域时进行赋值，或者在构造函数中进行赋值，即不会设置默认值。</p>
+</li>
+<li><p>对于<code>final</code>修饰的对象，只能保证改变量不能指向其他对象，但是不能保证对象的值不能被改变。（<code>P112</code>）</p>
+</li>
+<li><p>类的静态成员变量是存储在方法区中的，如果静态成员为对象，则变量在方法区中，引用的对象在堆中。</p>
+</li>
+<li><p>静态方法不能访问具体对象的实例域，但是在静态方法中新建一个对象，再进行对象操作也是可以的。</p>
+</li>
+<li><p><code>Java</code>方法的总结：①方法不能修改一个基本数据类型的变量②方法可以改变一个对象变量的状态③方法不能让对象变量引用一个新的对象。（<code>P120</code>）</p>
+</li>
+<li><p>重载：多个方法具有相同的名字，不同的参数；方法名、参数的类型和数量构成方法的签名（不包括返回值类型）。</p>
+</li>
+<li><p>如果类中定义了构造器，且没有定义无参构造器，则调用无参构造器为非法；因为只有在没有定义构造器的情况下，系统才会提高一个默认的无参构造器。（<code>P124</code>）</p>
+</li>
+<li><p>在构造函数中调用其他构造函数，用this即可；创建对象时的初始化顺序：成员变量声明、初始化块、构造函数，前面两个的先后顺序看那个先出现。</p>
+</li>
+<li><p>对象初始化过程：①所有成员变量赋默认值②根据成员变量和初始化块的出现顺序依次进行初始化③构造函数初始化</p>
+</li>
+<li><p>文件流等系统资源，即使<code>JVM</code>停止运行也不会被回收，所以需要手动调用<code>close()</code>进行资源回收。</p>
+</li>
+<li><p>静态导入，将某个类中的静态方法和静态成员变量导入到类中，使用时不再需要加上类名。</p>
+</li>
+<li><p><code>Java</code>编译器总是会在当前的目录中查找文件，但<code>Java</code>虚拟机仅在类路径中包含<code>&quot;.&quot;</code>时才会扫描当前路径，如果忘了配置<code>&quot;.&quot;</code>，有可能出现编译通过，但不能运行的情况。</p>
+</li>
+<li><p>类的设计技巧，有以下几种：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">1. 一定要保证数据私有</span><br><span class="line">2. 一定要对数据初始化</span><br><span class="line">3. 不要在类中使用过多的基本类型</span><br><span class="line">4. 不是所有的域都需要独立的域访问器和域更改器</span><br><span class="line">5. 将职责过多的类进行分解</span><br><span class="line">6. 类名和方法名要能够体现他们的职责</span><br><span class="line">7. 优先使用不可变的类</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
 
       
     </div>
@@ -404,12 +400,6 @@
 
     <footer class="post-footer">
       
-        <div class="post-tags">
-          
-            <a href="/tags/网易JAVA，知识积累/" rel="tag"># 网易JAVA，知识积累</a>
-          
-        </div>
-      
 
       
       
@@ -419,15 +409,15 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
+              <a href="/2019/06/07/Java核心技术——Java基础/" rel="next" title="Java核心技术——Java基础">
+                <i class="fa fa-chevron-left"></i> Java核心技术——Java基础
+              </a>
+            
           </div>
 
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2018/12/16/02_网易JAVA系列_变量可见性和线程安全/" rel="prev" title="网易JAVA系列_变量可见性和线程安全">
-                网易JAVA系列_变量可见性和线程安全 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -479,17 +469,8 @@
       
 
       
-        <ul class="sidebar-nav motion-element">
-          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
-            文章目录
-          </li>
-          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
-            站点概览
-          </li>
-        </ul>
-      
 
-      <section class="site-overview-wrap sidebar-panel">
+      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope="" itemtype="http://schema.org/Person">
             
@@ -549,22 +530,6 @@
         </div>
       </section>
 
-      
-      <!--noindex-->
-        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
-          <div class="post-toc">
-
-            
-              
-            
-
-            
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#了解分布式、高并发下的id生成要求"><span class="nav-number">1.</span> <span class="nav-text">了解分布式、高并发下的id生成要求</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#对id有哪些要求？"><span class="nav-number">1.1.</span> <span class="nav-text">对id有哪些要求？</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#生成id的策略一：UUID（长度为36的字符串）"><span class="nav-number">1.2.</span> <span class="nav-text">生成id的策略一：UUID（长度为36的字符串）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#生成id的策略二：数据库自增长"><span class="nav-number">1.3.</span> <span class="nav-text">生成id的策略二：数据库自增长</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#推特的雪花算法"><span class="nav-number">1.4.</span> <span class="nav-text">推特的雪花算法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#基于Redis自增"><span class="nav-number">1.5.</span> <span class="nav-text">基于Redis自增</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#了解各种方案使用场景"><span class="nav-number">2.</span> <span class="nav-text">了解各种方案使用场景</span></a></li></ol></div>
-            
-
-          </div>
-        </section>
-      <!--/noindex-->
       
 
       

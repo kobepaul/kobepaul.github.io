@@ -143,7 +143,7 @@
   page-home">
     <div class="headband"></div>
 
-	<a href="https://git@github.com:kobepaul/kobepaul.github.io.git"><img style="position: absolute;top: 0;right: 0;border: 0" src="https://github.blog/wp-content/uploads/2008/12/forkme_right_darkblue_121621.png?resize=149%2C149" class="attachment-full size-full" alt="Fork me on GitHub" data-recalc-dims="1"></a>
+	<a href="https://github.com/kobepaul/kobepaul.github.io"><img style="position: absolute;top: 0;right: 0;border: 0" src="https://github.blog/wp-content/uploads/2008/12/forkme_right_darkblue_121621.png?resize=149%2C149" class="attachment-full size-full" alt="Fork me on GitHub" data-recalc-dims="1"></a>
 	
     <header id="header" class="header" itemscope="" itemtype="http://schema.org/WPHeader">
       <div class="header-inner"><div class="site-brand-wrapper">
@@ -256,6 +256,319 @@
           <div id="content" class="content">
             
   <section id="posts" class="posts-expand">
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/06/07/Java核心技术——对象基础/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Jianfeng Xu">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/06/07/Java核心技术——对象基础/" itemprop="url">Java核心技术——对象基础</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-06-07T20:54:51+08:00">
+                2019-06-07
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <ol>
+<li><p><code>System</code>类对象调用<code>initializeSystemClass()</code>进行各成员对象的初始化，并且可以通过调用<code>setOut()</code>等方法对输入流、输出流对象进行切换，但流对象却是用<code>final</code>修饰的，原因在于<code>setOut()</code>等方法实际调用的是<code>native</code>关键词修饰的<code>setOut0()</code>方法。</p>
+</li>
+<li><p><code>Java</code>中的<code>String</code>字符串拼接，其本质如下，可以通过查看字节码实现：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//new StringBuilder() -&gt; append() -&gt; toString()</span></span><br><span class="line">String string= <span class="string">"1"</span> + <span class="keyword">new</span> String(<span class="string">"2"</span>);</span><br><span class="line"><span class="comment">//new StringBuilder() -&gt; valueOf() -&gt; append() -&gt; toString()</span></span><br><span class="line">String a = <span class="string">"123"</span>;</span><br><span class="line">String b = <span class="string">"456"</span>;</span><br><span class="line">String string = a + b;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><code>Java</code>中的<code>String</code>之所以被设计为不可变类，是为了实现共享，保证线程安全。不可变类有以下特点：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">1</span>. 将类声明为<span class="keyword">final</span>，所以它不能被继承（不能通过自定义子类来修改父类属性）</span><br><span class="line"><span class="number">2</span>. 将所有的成员声明为私有的，这样就不允许直接访问这些成员</span><br><span class="line"><span class="number">3</span>. 对变量不要提供setter方法</span><br><span class="line"><span class="number">4</span>. 将所有可变的成员声明为<span class="keyword">final</span>，这样只能对它们赋值一次</span><br><span class="line"><span class="number">5</span>. 通过构造器初始化所有成员，进行深拷贝(deep copy)（执行构造函数后，不会因为形参本身发生变化而影响对象的变量）</span><br><span class="line"><span class="number">6</span>. 在getter方法中，不要直接返回对象本身，而是克隆对象，并返回对象的拷贝（不能通过get方法获取对象后在外部进行修改）</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>在<code>for</code>循环中，不能通过两个浮点数的<code>！=</code>比较作为终止条件，很有可能造成死循环。</p>
+</li>
+<li><p>数组拷贝的效率从快到慢排序：<code>System.arrayCopy() &gt; Arrays.copyOf() &gt; Object.clone() &gt; for</code>循环，其中前两种为浅拷贝，第三种对于数组除外的对象是深拷贝。</p>
+</li>
+<li><p><code>get</code>方法不能返回带有<code>set</code>方法的对象，这样的话修改了<code>get</code>返回值的对象会直接对原始对象的值进行更改，<strong>如果需要返回对象并且不影响原始对象中的值，则应该先进行<code>clone</code>，或者使用不可变类</strong>。（<code>P110</code>）</p>
+</li>
+<li><p>对于类中辅助方法，可以将其设置为<code>private</code>，不允许其他类进行访问；同时对于<code>private</code>方法，只要保证类内部没有调用该方法，就可以将其删去，因为不会有外部类调用该方法。</p>
+</li>
+<li><p>对于<code>final</code>修饰的域，必须在定义域时进行赋值，或者在构造函数中进行赋值，即不会设置默认值。</p>
+</li>
+<li><p>对于<code>final</code>修饰的对象，只能保证改变量不能指向其他对象，但是不能保证对象的值不能被改变。（<code>P112</code>）</p>
+</li>
+<li><p>类的静态成员变量是存储在方法区中的，如果静态成员为对象，则变量在方法区中，引用的对象在堆中。</p>
+</li>
+<li><p>静态方法不能访问具体对象的实例域，但是在静态方法中新建一个对象，再进行对象操作也是可以的。</p>
+</li>
+<li><p><code>Java</code>方法的总结：①方法不能修改一个基本数据类型的变量②方法可以改变一个对象变量的状态③方法不能让对象变量引用一个新的对象。（<code>P120</code>）</p>
+</li>
+<li><p>重载：多个方法具有相同的名字，不同的参数；方法名、参数的类型和数量构成方法的签名（不包括返回值类型）。</p>
+</li>
+<li><p>如果类中定义了构造器，且没有定义无参构造器，则调用无参构造器为非法；因为只有在没有定义构造器的情况下，系统才会提高一个默认的无参构造器。（<code>P124</code>）</p>
+</li>
+<li><p>在构造函数中调用其他构造函数，用this即可；创建对象时的初始化顺序：成员变量声明、初始化块、构造函数，前面两个的先后顺序看那个先出现。</p>
+</li>
+<li><p>对象初始化过程：①所有成员变量赋默认值②根据成员变量和初始化块的出现顺序依次进行初始化③构造函数初始化</p>
+</li>
+<li><p>文件流等系统资源，即使<code>JVM</code>停止运行也不会被回收，所以需要手动调用<code>close()</code>进行资源回收。</p>
+</li>
+<li><p>静态导入，将某个类中的静态方法和静态成员变量导入到类中，使用时不再需要加上类名。</p>
+</li>
+<li><p><code>Java</code>编译器总是会在当前的目录中查找文件，但<code>Java</code>虚拟机仅在类路径中包含<code>&quot;.&quot;</code>时才会扫描当前路径，如果忘了配置<code>&quot;.&quot;</code>，有可能出现编译通过，但不能运行的情况。</p>
+</li>
+<li><p>类的设计技巧，有以下几种：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">1. 一定要保证数据私有</span><br><span class="line">2. 一定要对数据初始化</span><br><span class="line">3. 不要在类中使用过多的基本类型</span><br><span class="line">4. 不是所有的域都需要独立的域访问器和域更改器</span><br><span class="line">5. 将职责过多的类进行分解</span><br><span class="line">6. 类名和方法名要能够体现他们的职责</span><br><span class="line">7. 优先使用不可变的类</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope="" itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/06/07/Java核心技术——Java基础/">
+
+    <span hidden itemprop="author" itemscope="" itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Jianfeng Xu">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope="" itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Hexo">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2019/06/07/Java核心技术——Java基础/" itemprop="url">Java核心技术——Java基础</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-06-07T20:52:30+08:00">
+                2019-06-07
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <ol>
+<li><p>利用编译器生成平台无关的字节码，实现”一次编译，处处运行”；为了解决解释虚拟机指令比运行机器指令慢的问题，新增了<strong>即时编译</strong>（<code>JIT</code>）技术，可以将执行最频繁的字节码翻译成机器码。</p>
+</li>
+<li><p><code>Java</code>编码问题：分为<strong><code>JVM</code>之外</strong>和<strong><code>JVM</code>之内</strong>进行讨论。<br>①<code>JVM</code>之外：包括<code>Java</code>源文件(<code>.java</code>)和编译后的<code>.class</code>文件，源文件可以采用多种编码格式如<code>utf-8</code>(<code>Unix</code>、<code>Linux</code>平台默认) 或者<code>gbk</code>(<code>Windows</code>平台默认)，当将源码用<code>javac</code>编译的时候，<strong>默认是<code>javac</code>命令按照系统默认的编码格式读取<code>Java</code>源文件，然后以<code>utf-8</code>的格式输出到<code>.class</code>文件中</strong>，换句话说，在默认情况下（<code>Unix</code>平台），<code>javac</code>用<code>utf-8</code>格式读取<code>Java</code>源文件，然后以<code>utf-8</code>格式写<code>.class</code>；在默认情况下（<code>Windows</code>平台），<code>javac</code>用<code>gbk</code>格式读取<code>Java</code>源文件，然后以<code>utf-8</code>格式写<code>.class</code>。但是如果说源文件的编码格式不采用操作系统默认格式呢？如在<code>Windows</code>平台下用<code>utf-8</code>格式保存<code>java</code>源文件(一般<code>IDE</code>中都有选项选择文件保存编码格式)，如果不采用<code>IDE</code>，直接用<code>javac</code>编译该源文件，则会造成乱码。</p>
+<p>②<code>JVM</code>之内：当运行<code>java</code>字节码时，读入到内存里的字符或者字符串都用<code>char</code>或<code>char[]</code>表示，而<code>char</code>是采用<code>utf-16</code>的，<strong>但不是真正的<code>utf-16</code>（不能标识超过两个字节的字符）</strong>，为什么这样说?<code>char</code>在<code>Java</code>里一直是16位的，也就是说只能表示带<code>utf-16</code>的<code>0x0000-0xFFFF</code>(<code>BMP basic multilingual plane)</code>为止，当对于超过16位的<code>utf-16</code>字符来说(比如表情符号)就需要多个<code>char</code>了。</p>
+</li>
+<li><p><code>Java</code>是编译型语言还是解释性语言？</p>
+<p><strong>编译型语言</strong>：在程序运行之前，有一个单独的编译过程，将程序翻译成机器语言，以后执行这个程序时，就不用再进行翻译了。</p>
+<p><strong>解释型语言</strong>：是在运行的时候将程序翻译成机器语言，所以运行速度相对于编译型语言要慢。</p>
+<p>虽然<code>Java</code>的第一道工序是<code>javac</code>编译，其目标文件是<code>ByteCode</code>，而并非机器语言，但后续可能有三种处理方式：</p>
+<p>​    ①运行时，<code>ByteCode</code>由<code>JVM</code>逐条送给解释器，解释器将字节码翻译成机器码运行。</p>
+<p>​    ②运行时，部分<code>ByteCode</code>可能由实时编译器（<code>Just In Time Compiler，JIT</code>）编译为目标机器码再执行（以<code>method</code>为编译单位，还会保存起来，第二次执行就不用再翻译为机器码了），有些<code>JVM</code>是采用纯<code>JIT</code>编译方式实现的，其内部没有解释器，例如：<code>JRockit</code>、<code>Maxine VM</code>。是根据运行时信息确定哪些常用代码可以使用<code>JIT</code>。</p>
+<p>​    ③继<code>javac</code>之后执行<code>AOT</code>二次编译，在程序开始运行前就生成静态的目标平台机器码。</p>
+<p>​    有的时候，可能是以上三种方式同时在使用，至少1和2是同时使用的，3则需要程序员手工指定。所以，我认为<code>Java</code>是<strong>编译与解释两者之间的混合式语言</strong>。</p>
+</li>
+<li><p>基本数据类型：<code>int</code>、<code>byte</code>、<code>short</code>、<code>long</code>、<code>float</code>、<code>double</code>、<code>boolean</code>、<code>char</code>。</p>
+</li>
+<li><p>对于方法内部声明的基本数据类型，是存在栈中的；对于作为成员变量的基本数据类型，是存在堆中的；对于作为类中静态成员变量的基本数据类型，是存在方法区中的。</p>
+</li>
+<li><p><code>final</code>的基本含义是某个变量（此时也可以成为常量）只能<strong>赋值一次</strong>，<code>final</code>修饰基本数据类型，初始化后不能进行修改；修饰对象，初始化后不能指向其他对象，但对象的值可以改变。</p>
+</li>
+<li><p><code>int</code>和<code>long</code>转<code>float</code>，以及<code>long</code>转<code>double</code>可能出现精度损失。</p>
+</li>
+<li><p>对于 <strong><code>x+=4.1</code></strong> 这类运算，如果运算得到的结果与左侧操作数的类型不一致，则会发生强制类型转换。</p>
+</li>
+<li><p><code>join</code>方法将多个字符串拼接在一起，并用特定分隔符进行分隔。</p>
+</li>
+<li><p>在<code>foreach</code>循环中，对于基本数据类型的赋值操作不起作用，对于<strong>对象数组</strong>，进行元素的增删会抛出异常，但是可以进行某个元素的修改。<strong><code>ConcurrentModificationException</code></strong></p>
+</li>
+</ol>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
     
       
 
@@ -1042,7 +1355,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">4</span>
+                  <span class="site-state-item-count">6</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
