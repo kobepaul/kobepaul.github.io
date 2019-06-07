@@ -341,53 +341,18 @@
       
         
           
-            <ol>
-<li><p><code>System</code>类对象调用<code>initializeSystemClass()</code>进行各成员对象的初始化，并且可以通过调用<code>setOut()</code>等方法对输入流、输出流对象进行切换，但流对象却是用<code>final</code>修饰的，原因在于<code>setOut()</code>等方法实际调用的是<code>native</code>关键词修饰的<code>setOut0()</code>方法。</p>
-</li>
-<li><p><code>Java</code>中的<code>String</code>字符串拼接，其本质如下，可以通过查看字节码实现：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//new StringBuilder() -&gt; append() -&gt; toString()</span></span><br><span class="line">String string= <span class="string">"1"</span> + <span class="keyword">new</span> String(<span class="string">"2"</span>);</span><br><span class="line"><span class="comment">//new StringBuilder() -&gt; valueOf() -&gt; append() -&gt; toString()</span></span><br><span class="line">String a = <span class="string">"123"</span>;</span><br><span class="line">String b = <span class="string">"456"</span>;</span><br><span class="line">String string = a + b;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p><code>Java</code>中的<code>String</code>之所以被设计为不可变类，是为了实现共享，保证线程安全。不可变类有以下特点：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">1</span>. 将类声明为<span class="keyword">final</span>，所以它不能被继承（不能通过自定义子类来修改父类属性）</span><br><span class="line"><span class="number">2</span>. 将所有的成员声明为私有的，这样就不允许直接访问这些成员</span><br><span class="line"><span class="number">3</span>. 对变量不要提供setter方法</span><br><span class="line"><span class="number">4</span>. 将所有可变的成员声明为<span class="keyword">final</span>，这样只能对它们赋值一次</span><br><span class="line"><span class="number">5</span>. 通过构造器初始化所有成员，进行深拷贝(deep copy)（执行构造函数后，不会因为形参本身发生变化而影响对象的变量）</span><br><span class="line"><span class="number">6</span>. 在getter方法中，不要直接返回对象本身，而是克隆对象，并返回对象的拷贝（不能通过get方法获取对象后在外部进行修改）</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>在<code>for</code>循环中，不能通过两个浮点数的<code>！=</code>比较作为终止条件，很有可能造成死循环。</p>
-</li>
-<li><p>数组拷贝的效率从快到慢排序：<code>System.arrayCopy() &gt; Arrays.copyOf() &gt; Object.clone() &gt; for</code>循环，其中前两种为浅拷贝，第三种对于数组除外的对象是深拷贝。</p>
-</li>
-<li><p><code>get</code>方法不能返回带有<code>set</code>方法的对象，这样的话修改了<code>get</code>返回值的对象会直接对原始对象的值进行更改，<strong>如果需要返回对象并且不影响原始对象中的值，则应该先进行<code>clone</code>，或者使用不可变类</strong>。（<code>P110</code>）</p>
-</li>
-<li><p>对于类中辅助方法，可以将其设置为<code>private</code>，不允许其他类进行访问；同时对于<code>private</code>方法，只要保证类内部没有调用该方法，就可以将其删去，因为不会有外部类调用该方法。</p>
-</li>
-<li><p>对于<code>final</code>修饰的域，必须在定义域时进行赋值，或者在构造函数中进行赋值，即不会设置默认值。</p>
-</li>
-<li><p>对于<code>final</code>修饰的对象，只能保证改变量不能指向其他对象，但是不能保证对象的值不能被改变。（<code>P112</code>）</p>
-</li>
-<li><p>类的静态成员变量是存储在方法区中的，如果静态成员为对象，则变量在方法区中，引用的对象在堆中。</p>
-</li>
-<li><p>静态方法不能访问具体对象的实例域，但是在静态方法中新建一个对象，再进行对象操作也是可以的。</p>
-</li>
-<li><p><code>Java</code>方法的总结：①方法不能修改一个基本数据类型的变量②方法可以改变一个对象变量的状态③方法不能让对象变量引用一个新的对象。（<code>P120</code>）</p>
-</li>
-<li><p>重载：多个方法具有相同的名字，不同的参数；方法名、参数的类型和数量构成方法的签名（不包括返回值类型）。</p>
-</li>
-<li><p>如果类中定义了构造器，且没有定义无参构造器，则调用无参构造器为非法；因为只有在没有定义构造器的情况下，系统才会提高一个默认的无参构造器。（<code>P124</code>）</p>
-</li>
-<li><p>在构造函数中调用其他构造函数，用this即可；创建对象时的初始化顺序：成员变量声明、初始化块、构造函数，前面两个的先后顺序看那个先出现。</p>
-</li>
-<li><p>对象初始化过程：①所有成员变量赋默认值②根据成员变量和初始化块的出现顺序依次进行初始化③构造函数初始化</p>
-</li>
-<li><p>文件流等系统资源，即使<code>JVM</code>停止运行也不会被回收，所以需要手动调用<code>close()</code>进行资源回收。</p>
-</li>
-<li><p>静态导入，将某个类中的静态方法和静态成员变量导入到类中，使用时不再需要加上类名。</p>
-</li>
-<li><p><code>Java</code>编译器总是会在当前的目录中查找文件，但<code>Java</code>虚拟机仅在类路径中包含<code>&quot;.&quot;</code>时才会扫描当前路径，如果忘了配置<code>&quot;.&quot;</code>，有可能出现编译通过，但不能运行的情况。</p>
-</li>
-<li><p>类的设计技巧，有以下几种：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">1. 一定要保证数据私有</span><br><span class="line">2. 一定要对数据初始化</span><br><span class="line">3. 不要在类中使用过多的基本类型</span><br><span class="line">4. 不是所有的域都需要独立的域访问器和域更改器</span><br><span class="line">5. 将职责过多的类进行分解</span><br><span class="line">6. 类名和方法名要能够体现他们的职责</span><br><span class="line">7. 优先使用不可变的类</span><br></pre></td></tr></table></figure>
-</li>
-</ol>
-
           
+System类对象调用initializeSystemClass()进行各成员对象的初始化，并且可以通过调用setOut()等方法对输入流、输出流对象进行切换，但流对象却是用final修饰的，原因在于setOut()等方法实际调用的是native关键词修饰的setOut0()方法。
+
+Java中的
+          ...
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2019/06/07/Java核心技术——对象基础/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
@@ -505,38 +470,18 @@
       
         
           
-            <ol>
-<li><p>利用编译器生成平台无关的字节码，实现”一次编译，处处运行”；为了解决解释虚拟机指令比运行机器指令慢的问题，新增了<strong>即时编译</strong>（<code>JIT</code>）技术，可以将执行最频繁的字节码翻译成机器码。</p>
-</li>
-<li><p><code>Java</code>编码问题：分为<strong><code>JVM</code>之外</strong>和<strong><code>JVM</code>之内</strong>进行讨论。<br>①<code>JVM</code>之外：包括<code>Java</code>源文件(<code>.java</code>)和编译后的<code>.class</code>文件，源文件可以采用多种编码格式如<code>utf-8</code>(<code>Unix</code>、<code>Linux</code>平台默认) 或者<code>gbk</code>(<code>Windows</code>平台默认)，当将源码用<code>javac</code>编译的时候，<strong>默认是<code>javac</code>命令按照系统默认的编码格式读取<code>Java</code>源文件，然后以<code>utf-8</code>的格式输出到<code>.class</code>文件中</strong>，换句话说，在默认情况下（<code>Unix</code>平台），<code>javac</code>用<code>utf-8</code>格式读取<code>Java</code>源文件，然后以<code>utf-8</code>格式写<code>.class</code>；在默认情况下（<code>Windows</code>平台），<code>javac</code>用<code>gbk</code>格式读取<code>Java</code>源文件，然后以<code>utf-8</code>格式写<code>.class</code>。但是如果说源文件的编码格式不采用操作系统默认格式呢？如在<code>Windows</code>平台下用<code>utf-8</code>格式保存<code>java</code>源文件(一般<code>IDE</code>中都有选项选择文件保存编码格式)，如果不采用<code>IDE</code>，直接用<code>javac</code>编译该源文件，则会造成乱码。</p>
-<p>②<code>JVM</code>之内：当运行<code>java</code>字节码时，读入到内存里的字符或者字符串都用<code>char</code>或<code>char[]</code>表示，而<code>char</code>是采用<code>utf-16</code>的，<strong>但不是真正的<code>utf-16</code>（不能标识超过两个字节的字符）</strong>，为什么这样说?<code>char</code>在<code>Java</code>里一直是16位的，也就是说只能表示带<code>utf-16</code>的<code>0x0000-0xFFFF</code>(<code>BMP basic multilingual plane)</code>为止，当对于超过16位的<code>utf-16</code>字符来说(比如表情符号)就需要多个<code>char</code>了。</p>
-</li>
-<li><p><code>Java</code>是编译型语言还是解释性语言？</p>
-<p><strong>编译型语言</strong>：在程序运行之前，有一个单独的编译过程，将程序翻译成机器语言，以后执行这个程序时，就不用再进行翻译了。</p>
-<p><strong>解释型语言</strong>：是在运行的时候将程序翻译成机器语言，所以运行速度相对于编译型语言要慢。</p>
-<p>虽然<code>Java</code>的第一道工序是<code>javac</code>编译，其目标文件是<code>ByteCode</code>，而并非机器语言，但后续可能有三种处理方式：</p>
-<p>​    ①运行时，<code>ByteCode</code>由<code>JVM</code>逐条送给解释器，解释器将字节码翻译成机器码运行。</p>
-<p>​    ②运行时，部分<code>ByteCode</code>可能由实时编译器（<code>Just In Time Compiler，JIT</code>）编译为目标机器码再执行（以<code>method</code>为编译单位，还会保存起来，第二次执行就不用再翻译为机器码了），有些<code>JVM</code>是采用纯<code>JIT</code>编译方式实现的，其内部没有解释器，例如：<code>JRockit</code>、<code>Maxine VM</code>。是根据运行时信息确定哪些常用代码可以使用<code>JIT</code>。</p>
-<p>​    ③继<code>javac</code>之后执行<code>AOT</code>二次编译，在程序开始运行前就生成静态的目标平台机器码。</p>
-<p>​    有的时候，可能是以上三种方式同时在使用，至少1和2是同时使用的，3则需要程序员手工指定。所以，我认为<code>Java</code>是<strong>编译与解释两者之间的混合式语言</strong>。</p>
-</li>
-<li><p>基本数据类型：<code>int</code>、<code>byte</code>、<code>short</code>、<code>long</code>、<code>float</code>、<code>double</code>、<code>boolean</code>、<code>char</code>。</p>
-</li>
-<li><p>对于方法内部声明的基本数据类型，是存在栈中的；对于作为成员变量的基本数据类型，是存在堆中的；对于作为类中静态成员变量的基本数据类型，是存在方法区中的。</p>
-</li>
-<li><p><code>final</code>的基本含义是某个变量（此时也可以成为常量）只能<strong>赋值一次</strong>，<code>final</code>修饰基本数据类型，初始化后不能进行修改；修饰对象，初始化后不能指向其他对象，但对象的值可以改变。</p>
-</li>
-<li><p><code>int</code>和<code>long</code>转<code>float</code>，以及<code>long</code>转<code>double</code>可能出现精度损失。</p>
-</li>
-<li><p>对于 <strong><code>x+=4.1</code></strong> 这类运算，如果运算得到的结果与左侧操作数的类型不一致，则会发生强制类型转换。</p>
-</li>
-<li><p><code>join</code>方法将多个字符串拼接在一起，并用特定分隔符进行分隔。</p>
-</li>
-<li><p>在<code>foreach</code>循环中，对于基本数据类型的赋值操作不起作用，对于<strong>对象数组</strong>，进行元素的增删会抛出异常，但是可以进行某个元素的修改。<strong><code>ConcurrentModificationException</code></strong></p>
-</li>
-</ol>
-
           
+利用编译器生成平台无关的字节码，实现”一次编译，处处运行”；为了解决解释虚拟机指令比运行机器指令慢的问题，新增了即时编译（JIT）技术，可以将执行最频繁的字节码翻译成机器码。
+
+Java编码问题：分为JVM之外和JVM之内进行讨论。①JVM之外：包括Java源文件(.java)和编译后的.clas
+          ...
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2019/06/07/Java核心技术——Java基础/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
@@ -676,38 +621,22 @@
       
         
           
-            <h3 id="课程内容"><a href="#课程内容" class="headerlink" title="课程内容"></a>课程内容</h3><p><img src="/2018/12/18/04_网易JAVA系列_JUC并发编程工具类原理剖析/课程提纲.bmp" alt=""></p>
-<h3 id="3W1H学习方法"><a href="#3W1H学习方法" class="headerlink" title="3W1H学习方法"></a>3W1H学习方法</h3><p>​    What：是什么</p>
-<p>​    where：哪里用</p>
-<p>​    Why：为什么要用</p>
-<p>​    How：怎么做到</p>
-<h3 id="技术与业务"><a href="#技术与业务" class="headerlink" title="技术与业务"></a>技术与业务</h3><p>​    本次课程涉及的业务场景：一个提供给外部的接口需要调用内部的多个接口，<strong>利用多线程技术来减少接口的响应时间</strong>。</p>
-<p><img src="/2018/12/18/04_网易JAVA系列_JUC并发编程工具类原理剖析/接口场景.bmp" alt=""></p>
-<p>​    没有应用多线程的处理方法：</p>
-<p><img src="/2018/12/18/04_网易JAVA系列_JUC并发编程工具类原理剖析/不用多线程实现接口.bmp" alt=""></p>
-<p>​    应用多线程的处理方法：（前提是没有先后依赖关系）</p>
-<p><img src="/2018/12/18/04_网易JAVA系列_JUC并发编程工具类原理剖析/多线程实现接口.png" alt=""></p>
-<h3 id="实战应用"><a href="#实战应用" class="headerlink" title="实战应用"></a>实战应用</h3><p>2.1 Runnable和Callable的区别？</p>
-<p>​    ①方法名不同，Callable可以有返回值，并且可以抛出异常。</p>
-<p>2.2 Runnable和Callable的联系？</p>
-<p>​    ①call()实际是通过run()来调用执行的</p>
-<p>​    ②Runnable实例对象需要Thread包装启动</p>
-<p>​    ③Callable先通过FutureTask包装（本质还是Runnable），再丢给Thread包装执行</p>
-<p>2.3 Callable实现过程：</p>
-<p>​    ①定义Callable接口中的call()要完成的业务逻辑。</p>
-<p>​    ②利用FutureTask<t>封装Callable<t></t></t></p>
-<p>​    ③利用new Thread(FutureTask)启动线程</p>
-<p>​    ④FutureTask.get()获取线程的执行结果</p>
-<h3 id="知其所以然"><a href="#知其所以然" class="headerlink" title="知其所以然"></a>知其所以然</h3><p>3.1 源码阅读方法</p>
-<p>​    ①手动抛异常法②断点调试法③官方文档</p>
-<p>3.2 利用Runnable和Callable<t>实现自己的FutureTask<t> </t></t></p>
-<p>​    主要内容：</p>
-<p>​    ①成员变量：状态标识、Callable对象、结果储存对象</p>
-<p>​    ②方法：run()、get()（run()中包含唤醒，get()中包含等待）</p>
-<h3 id="拓展：线程之坑"><a href="#拓展：线程之坑" class="headerlink" title="拓展：线程之坑"></a>拓展：线程之坑</h3><p>4.1 wait()和notifyAll()执行要有先后顺序！</p>
-<p>4.2 park()和unpark()解决上述问题</p>
+          课程内容
+3W1H学习方法​    What：是什么
+​    where：哪里用
+​    Why：为什么要用
+​    How：怎么做到
+技术与业务​    本次课程涉及的业务场景：一个提供给外部的接口需要调用内部的多个接口，利用多线程技术来减少接口的响应时间。
 
-          
+​    没有应用多线程的处理
+          ...
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2018/12/18/04_网易JAVA系列_JUC并发编程工具类原理剖析/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
@@ -847,70 +776,23 @@
       
         
           
-            <h3 id="课程目标"><a href="#课程目标" class="headerlink" title="课程目标"></a>课程目标</h3><ol>
-<li>MySQL简介</li>
-<li>MySQL索引底层结构简介</li>
-<li>MySQL Explain执行计划详解</li>
-</ol>
-<h3 id="MySQL简介"><a href="#MySQL简介" class="headerlink" title="MySQL简介"></a>MySQL简介</h3><h4 id="MySQL基本介绍"><a href="#MySQL基本介绍" class="headerlink" title="MySQL基本介绍"></a>MySQL基本介绍</h4><p>1.1.1 MySQL的架构图如下所示，其核心特色有以下三点：</p>
-<p>​    ①基于文件存储    ②单进程多线程    ③插件式的储存引擎</p>
-<p><img src="/2018/12/18/03_网易JAVA系列_MySQL数据库优化及SQL优化/MySQL架构.png" alt=""></p>
-<p>1.1.2 MySQL优化的角度主要包括以下几方面：</p>
-<p>​    ①文件系统层    ②操作系统层    ③网络层    ④SQL层</p>
-<p><img src="/2018/12/18/03_网易JAVA系列_MySQL数据库优化及SQL优化/SQL执行过程.png" alt=""></p>
-<p><a href="https://www.cnblogs.com/clsn/p/8214048.html" target="_blank" rel="noopener">MySQL优化方案</a>：讲述了MySQL优化的几个角度。</p>
-<p>1.1.3 InnoDB衍生出来的数据库Maria DB</p>
-<p>1.1.4 MySQL各种存储引擎之间的比较</p>
-<p><img src="/2018/12/18/03_网易JAVA系列_MySQL数据库优化及SQL优化/MySQL存储引擎对比.png" alt=""></p>
-<p>​    关键点：索引、事务和分布式存储扩展能力。</p>
-<p>1.1.5 数据库事务的ACID特性：</p>
-<p>​    ①A：原子性，要么整个事务全部成功，要么整个事务全部失败</p>
-<p>​    ②C：一致性，保证系统始终处于一致的状态</p>
-<p>​    ③I：隔离性，隔离状态执行事务，使他们好像是当前正在执行的唯一操作</p>
-<p>​    ④D：持久性，在事务结束后，将该事务对数据库的操作持久化，无法再回滚</p>
-<p>1.1.6 MVCC（多版本并发控制）</p>
-<p>​    基本原理：通过保存数据在某个时间点的快照来实现。这意味着一个事务无论运行多长时间，在同一个事务里能够看到数据一致的视图。根据事务开始的时间不同，在同一个时刻不同事务看到的相同表里的数据可能是不同的。在MySQL中就是每行数据增加<strong>创建版本号和删除版本号</strong>两个字段（这个只是简单版本的MVCC，与MySQL实际的实现有很大出入）。MVCC只在REPEATABLE READ和READ COMMITED两种隔离级别下有效。</p>
-<p>​    基本特征：</p>
-<p>​    1. 每行数据都存在一个版本，每次数据更新时都更新该版本。</p>
-<p>​    2. 修改时Copy出当前版本随意修改，各个事务之间无干扰。</p>
-<p>​    3. 保存时比较版本号，如果成功（commit），则覆盖原记录；失败则放弃copy（rollback）</p>
-<p>​    <a href="https://www.cnblogs.com/aspirant/p/6920987.html" target="_blank" rel="noopener">MySQL中的MVCC（多版本并发控制）</a>：这个博主的文章不错，值得多看看！注意点：MySQL的可重复读已经避免了幻读！！</p>
-<p>​    <a href="http://libisthanks.blog.163.com/blog/static/23527612320141016111027592" target="_blank" rel="noopener">比较完整的MySQL中的MVCC</a>：使用行记录中的<strong>DATA_TRX_ID</strong>和<strong>DATA_ROLL_PTR</strong>字段，以及事务开始时创建<strong>read_view</strong>来实现MVCC。</p>
-<p>​    READ-COMMITTED：事务内的每个查询语句都会重新创建read_view，这样就会产生不可重复读现象发生</p>
-<p>​    REPEATABLE-READ：事务内开始时创建read_view， 在事务结束这段时间内 每一次查询都不会重新重建read_view， 从而实现了可重复读。</p>
-<p>1.1.7 MyISAM和InnoDB对比</p>
-<p><img src="/2018/12/18/03_网易JAVA系列_MySQL数据库优化及SQL优化/MyISAM和InnoDB对比.png" alt=""></p>
-<p>​    聚集索引的定义：数据行的物理顺序与列值（及索引，一般为主键）的逻辑顺序相同，一个表中只能有一个聚集索引。根据聚集索引可以直接查询到需要的数据，而非聚集索引还需要进行二次查询（第一次查询只能获取到对应的索引值，再根据索引值去查询数据）。</p>
-<h3 id="MySQL索引底层结构简介"><a href="#MySQL索引底层结构简介" class="headerlink" title="MySQL索引底层结构简介"></a>MySQL索引底层结构简介</h3><h4 id="如何衡量索引的好坏？"><a href="#如何衡量索引的好坏？" class="headerlink" title="如何衡量索引的好坏？"></a>如何衡量索引的好坏？</h4><p>​    从时间复杂度和空间复杂度进行考虑。</p>
-<h4 id="常用的实现索引的数据结构？"><a href="#常用的实现索引的数据结构？" class="headerlink" title="常用的实现索引的数据结构？"></a>常用的实现索引的数据结构？</h4><p>​    ①B+Tree索引</p>
-<pre><code>B-Tree索引
-</code></pre><p><img src="/2018/12/18/03_网易JAVA系列_MySQL数据库优化及SQL优化/B-Tree索引.png" alt=""></p>
-<p>​    B+Tree索引</p>
-<p><img src="/2018/12/18/03_网易JAVA系列_MySQL数据库优化及SQL优化/B+Tree索引.png" alt=""></p>
-<p>​    ②Hash索引（类似Java中的HashMap，常用于实现缓存）</p>
-<p>​    ③R-Tree索引（用于存储空间坐标值）</p>
-<p>​    ④Full-Text索引（存储大文本，分词加倒排表）</p>
-<h4 id="between……and……的范围查询使用了间隙锁，及其可能引发的问题？"><a href="#between……and……的范围查询使用了间隙锁，及其可能引发的问题？" class="headerlink" title="between……and……的范围查询使用了间隙锁，及其可能引发的问题？"></a>between……and……的范围查询使用了间隙锁，及其可能引发的问题？</h4><p>​    间隙锁是MySQL三种锁：行锁、间隙锁和Next-key Lock（行锁和间隙锁的合并）之一，可以防止幻读的发生。用update语句更新范围内的数据，或在REPEATABLE_READ的隔离级别下，删除的数据不存在，则会产生间隙锁。<strong>间隙锁会导致在区间内的数据无法插入</strong>。</p>
-<h3 id="MySQL执行计划简介"><a href="#MySQL执行计划简介" class="headerlink" title="MySQL执行计划简介"></a>MySQL执行计划简介</h3><p>3.1 什么是执行计划？</p>
-<p>​    执行计划就是MySQL如何执行一条SQL语句，包括查询的顺序、是否使用索引以及使用的索引信息等内容。</p>
-<p>3.2 查看执行计划的基本语法？</p>
-<p>​    ① explain select ……</p>
-<p>​    ②explain extended select ……</p>
-<p>​    ③explain partitions select ……</p>
-<p>3.3 MySQL的分区表是什么？</p>
-<p>​    分区表：所有数据还是在一个表中，但物理存储根据一定的规则放在不同的硬盘或文件中。</p>
-<p>​    与分库分表相比，分区表存在以下缺点：</p>
-<p>​    ①分区键设计不太灵活，如果不走分区键，很容易出现全表锁</p>
-<p>​    ②一旦数据并发量较大，如果在分区表实施关联，就是一个灾难</p>
-<p>​    ③分库分表，开发人员可掌握业务场景与访问模式，较为可控；而分区表不太可控</p>
-<p>3.4 explain的返回结果</p>
-<p><img src="/2018/12/18/03_网易JAVA系列_MySQL数据库优化及SQL优化/explain结果.png" alt=""></p>
-<p>3.5 InnoDB的索引实现</p>
-<p>​    一级索引和二级索引（辅助索引）？二级索引能查到的一级索引值，然后再根据一级索引值查数据。与MyISAM的不同是，MyISAM任何索引都是直接关联到数据的。</p>
-<p>3.6 key_length的计算公式</p>
-<p><img src="/2018/12/18/03_网易JAVA系列_MySQL数据库优化及SQL优化/索引key_length.png" alt=""></p>
+          课程目标
+MySQL简介
+MySQL索引底层结构简介
+MySQL Explain执行计划详解
 
-          
+MySQL简介MySQL基本介绍1.1.1 MySQL的架构图如下所示，其核心特色有以下三点：
+​    ①基于文件存储    ②单进程多线程    ③插件式的储存引擎
+
+1.1.2 MySQL优化的角度
+          ...
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2018/12/18/03_网易JAVA系列_MySQL数据库优化及SQL优化/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
@@ -1050,70 +932,22 @@
       
         
           
-            <h3 id="本次课程主要内容"><a href="#本次课程主要内容" class="headerlink" title="本次课程主要内容"></a>本次课程主要内容</h3><ol>
-<li>掌握并发中变量可见性问题</li>
-<li>掌握造成线程安全、变量可见性问题的原因</li>
-<li>掌握volatile关键字的用途、使用场景</li>
-</ol>
-<h3 id="掌握并发中变量可见性问题（多线程时能不能看到变量的最新值）"><a href="#掌握并发中变量可见性问题（多线程时能不能看到变量的最新值）" class="headerlink" title="掌握并发中变量可见性问题（多线程时能不能看到变量的最新值）"></a>掌握并发中变量可见性问题（多线程时能不能看到变量的最新值）</h3><h4 id="什么是并发中的变量可见性问题？"><a href="#什么是并发中的变量可见性问题？" class="headerlink" title="什么是并发中的变量可见性问题？"></a>什么是并发中的变量可见性问题？</h4><p>2.1.1 变量分类</p>
-<p>​    全局变量：成员属性；局部变量：本地变量和参数</p>
-<p>2.1.2 如何在多个线程间共享数据</p>
-<p>​    用全局变量：静态变量或者共享对象（注意ThreadLocal是用来让线程独享数据的）</p>
-<p>2.1.3 一个变量在线程1中被改变值了，在线程2中能看到该变量的最新值吗？</p>
-<p>​    经测试，另一个变量不能看到变量的最新值。</p>
-<h4 id="不可见的原因及如何才能可见？"><a href="#不可见的原因及如何才能可见？" class="headerlink" title="不可见的原因及如何才能可见？"></a>不可见的原因及如何才能可见？</h4><p>2.2.1 为什么不可见？</p>
-<p>2.2.2 怎么才能可见？</p>
-<p>​    ①使用synchronized代码块或方法  ②使用volatile关键字</p>
-<h3 id="掌握造成线程安全、变量可见性问题的原因"><a href="#掌握造成线程安全、变量可见性问题的原因" class="headerlink" title="掌握造成线程安全、变量可见性问题的原因"></a>掌握造成线程安全、变量可见性问题的原因</h3><h4 id="Java内存模型"><a href="#Java内存模型" class="headerlink" title="Java内存模型"></a>Java内存模型</h4><p>3.1.1 Java内存模型及操作规范</p>
-<p>​    ①共享变量必须存放在主内存中</p>
-<p>​    ②线程有自己的工作内存，线程只可操作自己的工作内存</p>
-<p>​    ③线程要操作共享变量，需从主内存中读取到工作内存，改变值后需从工作内存同步回主内存中</p>
-<p><img src="/2018/12/16/02_网易JAVA系列_变量可见性和线程安全/Java内存模型.png" alt=""></p>
-<p>3.1.2 上述内存模型会带来什么问题？</p>
-<p><img src="/2018/12/16/02_网易JAVA系列_变量可见性和线程安全/线程安全问题.png" alt=""></p>
-<p>​    读取和同步带来的并发问题？（与预期结果不一致，并不是预期的3）</p>
-<p>3.1.3 如何解决上述问题？</p>
-<p>​    保证以下几点：①线程1修改后必须立马将共享变量同步回主内存    ②线程2使用共享变量前需重新将其从主内存读取到工作内存    ③线程有先后顺序的执行</p>
-<p>3.1.4 使用前不会重新从主内存读取到工作内存吗？</p>
-<p>3.1.5 修改后不会立马同步回主内存吗？</p>
-<h4 id="Java内存同步协议"><a href="#Java内存同步协议" class="headerlink" title="Java内存同步协议"></a>Java内存同步协议</h4><p>3.2.1 同步协议中规定了8中原子操作：</p>
-<p>​    ①lock（锁定）：将主内存中的变量锁定，为一个线程所独占</p>
-<p>​    ②unlock（解锁）：将lock加的锁定解除，此时其它的线程可以有机会访问此变量</p>
-<p>​    ③read（读取）：作用于主内存变量，将主内存中的变量读取到工作内存中</p>
-<p>​    ④load（载入）：作用于工作内存变量，将read读取到的值保存到工作内存中的变量副本中</p>
-<p>​    ⑤use（使用）：作用于工作内存变量，将变量副本中存的值传递给线程的代码执行引擎</p>
-<p>​    ⑥assign（赋值）：作用于工作内存变量，将执行引擎处理返回的值重新赋值给变量副本</p>
-<p>​    ⑦store（存储）：作用于工作内存变量，将变量副本的值回写到主内存中</p>
-<p>​    ⑧write（写入）：作用于主内存变量，将store传送过来的值写入到主内存的共享变量中</p>
-<p>3.2.2 同步协议规范：</p>
-<p>​    ①将一个变量从主内存复制到工作内存要顺序执行read、load操作；要将变量从工作内存同步回主内存要顺序执行store、write操作。<strong>只要求顺序执行，不一定要连续执行</strong>。</p>
-<p>​    ②做了assign操作，必须同步回主内存。不能没做assign操作，直接同步回主内存。（<strong>不一定要做完assign后，立即同步回主内存</strong>）</p>
-<p><img src="/2018/12/16/02_网易JAVA系列_变量可见性和线程安全/内存同步协议规范.png" alt=""></p>
-<h4 id="实现变量可见性"><a href="#实现变量可见性" class="headerlink" title="实现变量可见性"></a>实现变量可见性</h4><p>3.3.1 保证变量可见性的方式</p>
-<p>​    ①final变量：常量，不能被修改    ②Synchronized    ③volatile关键字</p>
-<p>3.3.2 Synchronized如何实现可见性</p>
-<p>​    Synchronized的语义规范：①进入同步块前，先清空工作内存中的共享变量，从主内存中重新加载该变量    ②解锁前必须把修改的共享变量同步回主内存    ③锁机制本身保证不会有多个线程同时操作共享变量</p>
-<h3 id="掌握volatile关键字的用途、使用场景"><a href="#掌握volatile关键字的用途、使用场景" class="headerlink" title="掌握volatile关键字的用途、使用场景"></a>掌握volatile关键字的用途、使用场景</h3><p>4.1.1 volatile规范：</p>
-<p>​    ①使用volatile变量时，必须重新从主内存加载，并且read、load是连续的</p>
-<p>​    ②修改volatile变量后，必须立马同步回主内存，并且store、write是连续的</p>
-<p>4.1.2 volatile能做到线程安全吗？</p>
-<p>​    不能。没有锁机制，中间对数据操作的代码不能保证只有一个线程在执行。</p>
-<p>4.1.3 Synchronized能同时保证可见性和线程安全，为什么还要有volatile？</p>
-<p>​    ①volatile的使用比Synchronized简单    ②volatile性能比Synchronized稍好</p>
-<p>4.1.4 volatile还有什么用途？</p>
-<p>​    可以限制局部代码的<strong>指令重排</strong>。</p>
-<p><img src="/2018/12/16/02_网易JAVA系列_变量可见性和线程安全/指令重排.png" alt=""></p>
-<p>4.1.5 volatile的成员变量</p>
-<p>​    ①只能修饰成员变量（因为本地变量和参数不能多线程共享）</p>
-<p>​    ②多线程并发下，才需要使用它</p>
-<p>​    ③只有一个修改者，多个使用者，要求保证可见性的场景（不能有多个修改者，因为不能保证线程安全）</p>
-<p>​    ④用来做状态标识和数据定期发布</p>
-<h3 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h3><p>5.1 并发变量可见性问题</p>
-<p>5.2 可见性、线程安全问题原因 &amp; Java内存模型 &amp; synchronized原理</p>
-<p>5.3 volatile原理、用法、用途和应用场景</p>
-<p><img src="/2018/12/16/02_网易JAVA系列_变量可见性和线程安全/Java高级技术栈.png" alt=""></p>
+          本次课程主要内容
+掌握并发中变量可见性问题
+掌握造成线程安全、变量可见性问题的原因
+掌握volatile关键字的用途、使用场景
 
-          
+掌握并发中变量可见性问题（多线程时能不能看到变量的最新值）什么是并发中的变量可见性问题？2.1.1 变量分类
+​    全局变量：成员属性；局部变量：本地变量和参数
+2.
+          ...
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2018/12/16/02_网易JAVA系列_变量可见性和线程安全/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
@@ -1253,29 +1087,16 @@
       
         
           
-            <h3 id="了解分布式、高并发下的id生成要求"><a href="#了解分布式、高并发下的id生成要求" class="headerlink" title="了解分布式、高并发下的id生成要求"></a>了解分布式、高并发下的id生成要求</h3><h4 id="对id有哪些要求？"><a href="#对id有哪些要求？" class="headerlink" title="对id有哪些要求？"></a>对id有哪些要求？</h4><p>​    ①全局唯一    ②趋势递增    ③效率高（生成、使用、索引）    ④控制并发</p>
-<p>​    趋势递增：并不要求像1，2，3…一样严格有序递增，只要整体式来看是增长的，有规律可循即可。（一般id为数据库索引，对MySQL中的B+树等比较友好）</p>
-<p>​    效率高：生成（每秒生成的id数）、使用（最好是整形的数字，相比字符串更有优势）、索引（对整形有序数字构建索引相比字符串更快，查询也是）</p>
-<h4 id="生成id的策略一：UUID（长度为36的字符串）"><a href="#生成id的策略一：UUID（长度为36的字符串）" class="headerlink" title="生成id的策略一：UUID（长度为36的字符串）"></a>生成id的策略一：UUID（长度为36的字符串）</h4><p>​    由以当前日期和时间、时钟序列和全局唯一的IEEE机器识别号（一般为MAC地址）等元素组成。</p>
-<p>​    优点：①使用简单；②不依赖其他组件；③不影响数据库拓展</p>
-<p>​    缺点：①数据库索引效率低；②太过于无意义，用户不友好；③长度36的字符串，空间占用大；④应用集群环境，机器多的时候，重复几率大</p>
-<h4 id="生成id的策略二：数据库自增长"><a href="#生成id的策略二：数据库自增长" class="headerlink" title="生成id的策略二：数据库自增长"></a>生成id的策略二：数据库自增长</h4><p>​    MySQL中使用AUTO_INCREMENT，Oracle中使用Sequence系列</p>
-<p>​    集群环境下，不同的库设置不同的初始值，步长一致。</p>
-<p><img src="/2018/12/16/01_网易JAVA系列_高并发订单号生成策略揭秘/id生成方案二.png" alt=""></p>
-<p>​    优点：①无需编码；②性能过得去；③索引友好</p>
-<p>​    缺点：①大表不能做水平分表，否则插入删除易出现问题；②依赖前期规划，拓展麻烦；③依赖MySQL内部维护“自增锁”，高并发下插入数据影响性能；④在业务操作父、子表（关联表）插入时，要“先父后子”（因为是自增，子表的字段需要根据父表的写入后返回的主键确定）</p>
-<p>​    使用场景：数据量较大、不想用程序维护id、方便后续业务迁移的时候</p>
-<h4 id="推特的雪花算法"><a href="#推特的雪花算法" class="headerlink" title="推特的雪花算法"></a>推特的雪花算法</h4><p><img src="/2018/12/16/01_网易JAVA系列_高并发订单号生成策略揭秘/id生成雪花算法.png" alt=""></p>
-<p>​    优点：①性能较优，速度快；②无需第三方依赖，实现也很简单；③可以根据实际情况调整和拓展算法，方便灵活。</p>
-<p>​    缺点：①依赖机器时间，如果发生回拨会导致可能生成id重复，业界一般根据雪花算法进行拓展。</p>
-<h4 id="基于Redis自增"><a href="#基于Redis自增" class="headerlink" title="基于Redis自增"></a>基于Redis自增</h4><p><img src="/2018/12/16/01_网易JAVA系列_高并发订单号生成策略揭秘/id方案生成Redis.png" alt=""></p>
-<p>​    优点：①扩展性强，可以方便的结合业务进行处理；②利用Redis操作原子性的特性，保证在并发的时候不会重复。</p>
-<p>​    缺点：①引入Redis就意味着引入其他第三方依赖；②增加一次网络开销；③需要对Redis服务实现高可用。</p>
-<p>​    使用场景：绝大部分id自增场景。</p>
-<h3 id="了解各种方案使用场景"><a href="#了解各种方案使用场景" class="headerlink" title="了解各种方案使用场景"></a>了解各种方案使用场景</h3><p>2.1各方案对比</p>
-<p><img src="/2018/12/16/01_网易JAVA系列_高并发订单号生成策略揭秘/id生成方案对比.png" alt=""></p>
-
-          
+          了解分布式、高并发下的id生成要求对id有哪些要求？​    ①全局唯一    ②趋势递增    ③效率高（生成、使用、索引）    ④控制并发
+​    趋势递增：并不要求像1，2，3…一样严格有序递增，只要整体式来看是增长的，有规律可循即可。（一般id为数据库索引，对MySQL中的B+树等比较友
+          ...
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2018/12/16/01_网易JAVA系列_高并发订单号生成策略揭秘/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
